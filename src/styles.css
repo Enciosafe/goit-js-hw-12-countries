@@ -5,7 +5,7 @@ body {
 .head-title {
   display: flex;
   justify-content: center;
-  font-family: 'New Tegomin', serif;
+  font-family: "New Tegomin", serif;
   font-weight: bold;
   text-transform: uppercase;
   position: relative;
@@ -13,7 +13,7 @@ body {
 }
 
 .head-title::after {
-  content: '';
+  content: "";
   border-radius: 50%;
   height: 85px;
   width: 85px;
@@ -36,7 +36,7 @@ body {
 .form-input[placeholder] {
   font-size: 27px;
   opacity: 0.7;
-  font-family: 'New Tegomin', serif;
+  font-family: "New Tegomin", serif;
   padding-left: 0px;
 }
 
@@ -47,7 +47,7 @@ body {
 }
 
 .card-title {
-  font-family: 'New Tegomin', serif;
+  font-family: "New Tegomin", serif;
   display: flex;
   justify-content: center;
   margin-top: 40px;
@@ -62,12 +62,32 @@ body {
   border: 1px solid;
   max-height: 250px;
   max-width: 250px;
+  margin-top: 30px;
 }
 
 .card-text {
-  font-family: 'New Tegomin', serif;
+  font-family: "New Tegomin", serif;
 }
 
 .lang {
   list-style-type: none;
+}
+
+.list-ul {
+  display: flex;
+  flex-direction: column;
+
+  align-items: baseline;
+}
+
+.list {
+  font-family: "New Tegomin", serif;
+  list-style-type: decimal;
+}
+
+.result {
+  display: flex;
+  justify-content: center;
+  color: red;
+  font-family: "New Tegomin", serif;
 }

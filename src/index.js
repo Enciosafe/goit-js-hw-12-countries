@@ -1,35 +1,53 @@
 import './styles.css';
 import './fetchCountries.js'
-import template from './template.hbs';
+import card from './card.hbs';
+import list from './list.hbs'
+import getRefs from './refs.js';
+import '@pnotify/core/dist/BrightTheme.css'
 
-const refs = {
-  cardBox: document.querySelector('.card-box'),
-  inputForm: document.querySelector('.form-input')
+const { alert, notice, info, success, error } = require('@pnotify/core');
+const refs = getRefs()
+
+function onFetchError(error) {
+  console.log(error)
 }
 
-fetch('https://restcountries.eu/rest/v2/name/Canada')
-        .then(response => {
-            return response.json();
-        }).then(countryRender)
-           .catch(error => {
-             console.log(error)
-           });
-        
-
+function fetchCountries(countryName) {
+  return fetch(`https://restcountries.eu/rest/v2/name/${countryName}`).
+    then(response => response.json());
+}
 
 
 function countryRender(country) {
-  const markup = template(country[0]);
+  if (country.length > 10 && country.length !== 1) {
+    refs.cardBox.innerHTML = "";
+    return info("Too many matches found. Please enter a more specific query!")
+  }
+  if (country.length <= 10 && country.length !== 1) {
+    const markupList = list(country)
+    refs.cardBox.innerHTML = markupList;
+    console.dir(country)
+    return
+  }
+  const markup = card(country[0]);
   refs.cardBox.innerHTML = markup;
+  console.log(country)
 }
-
-const debounce = require('lodash.debounce');
-
-const input = addEventListener('input', search)
 
 function search(e) {
-  console.log(e.data);
-}
+  const form = e.target
+  const searchQuery = form.value;
+
+  fetchCountries(searchQuery)
+  .then(countryRender)
+  .catch(onFetchError)
+};
+
+const debounce = require('lodash.debounce');
+refs.inputForm.addEventListener('input', debounce(search,500))
+
+
+
 
 
 
